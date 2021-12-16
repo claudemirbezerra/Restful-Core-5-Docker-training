@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using RestCore5Training.Services;
+using RestCore5Training.Services.Implementations;
 
 namespace RestCore5Training
 {
@@ -28,6 +30,10 @@ namespace RestCore5Training
         {
 
             services.AddControllers();
+
+            //Dependency Injection
+            services.AddScoped<IPersonService, PersonService>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RestCore5Training", Version = "v1" });
