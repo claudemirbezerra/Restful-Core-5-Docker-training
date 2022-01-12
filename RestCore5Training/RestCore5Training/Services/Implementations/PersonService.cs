@@ -1,12 +1,22 @@
 using System.Threading;
 using RestCore5Training.Models;
 using System.Collections.Generic;
+using RestCore5Training.Models.Context;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace RestCore5Training.Services.Implementations
 {
     public class PersonService : IPersonService
     {
         private volatile int count;
+        private MySQLContext _context;
+
+        public PersonService(MySQLContext context)
+        {
+            _context = context;
+        }
 
         public Person Create(Person person)
         {
@@ -18,16 +28,9 @@ namespace RestCore5Training.Services.Implementations
             
         }
 
-        public List<Person> FindAll()
+        public async Task<List<Person>> FindAllAsync()
         {
-            var persons = new List<Person>();
-            for (int i = 0; i < 8; i++)
-            {
-                Person person = MockPerson(i);
-                persons.Add(person);
-            }
-
-            return persons;
+            return await _context.Persons.ToListAsync();
         }
 
         public Person FindById(long id)

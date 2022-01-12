@@ -1,5 +1,6 @@
 using RestCore5Training.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RestCore5Training.Services
 {
@@ -7,7 +8,7 @@ namespace RestCore5Training.Services
     {
          Person Create(Person person);
          Person FindById(long id);
-         List<Person> FindAll();
+         Task<List<Person>> FindAllAsync();
          Person Update(Person person);
          void Delete(long id);
     }

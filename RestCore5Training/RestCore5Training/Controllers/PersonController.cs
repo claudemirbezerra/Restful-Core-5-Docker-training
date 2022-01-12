@@ -2,11 +2,12 @@
 using Microsoft.Extensions.Logging;
 using RestCore5Training.Models;
 using RestCore5Training.Services;
+using System.Threading.Tasks;
 
 namespace RestCore5Training.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
@@ -20,9 +21,9 @@ namespace RestCore5Training.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            return Ok(_personService.FindAll());
+            return Ok(await _personService.FindAllAsync());
         }
 
         [HttpGet("{id}")]
